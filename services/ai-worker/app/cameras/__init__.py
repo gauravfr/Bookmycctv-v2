@@ -1,0 +1,1 @@
+"""Camera stream lifecycle management."""

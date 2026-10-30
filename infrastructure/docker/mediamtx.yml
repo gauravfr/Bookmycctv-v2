@@ -1,0 +1,15 @@
+logLevel: info
+api: yes
+apiAddress: 0.0.0.0:9997
+metrics: yes
+metricsAddress: 0.0.0.0:9998
+rtspTransports: [tcp]
+hls: yes
+webrtc: yes
+authMethod: http
+authHTTPAddress: http://api:3000/api/v1/media/auth
+authHTTPExclude:
+  - action: api
+  - action: metrics
+paths:
+  all_others:

@@ -1,0 +1,9 @@
+{
+  "modelId": "fiacecson20-cctv-ai-fire-smoke",
+  "version": "343990e42d99a5d27e9f35fc7c80880dc5f43f45",
+  "file": "fire-smoke-yolov8n-v0.onnx",
+  "labels": ["fire", "smoke"],
+  "sha256": "f2699b753e78be8d392bfa63e64bf102ea3ceb8b6086a59dfd8192b61a0c6fad",
+  "inputSize": 320,
+  "outputFormat": "yolo_v8"
+}

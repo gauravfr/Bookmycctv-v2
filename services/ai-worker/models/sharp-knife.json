@@ -1,0 +1,9 @@
+{
+  "modelId": "bookmycctv-knife-v4-clean-head",
+  "version": "cpu-pilot-2026-10-29-v4",
+  "file": "sharp-knife-v4.onnx",
+  "labels": ["knife"],
+  "sha256": "fb289c5d99af115dc8659b4f353329656b87e637fc7d06f0f90a3aa5a760cff8",
+  "inputSize": 640,
+  "outputFormat": "yolo_v8"
+}

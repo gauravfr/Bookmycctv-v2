@@ -1,0 +1,38 @@
+{
+  "name": "@bookmycctv/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint app src --ext .ts,.tsx",
+    "doctor": "expo-doctor",
+    "test": "vitest run --config vitest.config.ts"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "15.1.1",
+    "expo": "58.0.19",
+    "expo-constants": "58.0.13",
+    "expo-device": "~58.0.5",
+    "expo-linking": "58.0.14",
+    "expo-notifications": "~58.1.6",
+    "expo-router": "58.0.26",
+    "expo-secure-store": "58.0.2",
+    "expo-status-bar": "58.0.4",
+    "expo-system-ui": "58.0.6",
+    "expo-video": "58.0.12",
+    "react": "19.3.1",
+    "react-native": "0.88.0",
+    "react-native-safe-area-context": "5.10.1",
+    "react-native-screens": "4.30.0"
+  },
+  "type": "module"
+}

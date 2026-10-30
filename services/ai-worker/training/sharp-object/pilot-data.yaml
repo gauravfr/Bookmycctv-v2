@@ -1,0 +1,8 @@
+path: C:/Users/pande/Downloads/BookMyCCTV-V2/services/ai-worker/research/datasets/sharp-pilot-v1/pilot-ccby-v1
+train: images/train
+val: images/validation
+test: images/test
+
+names:
+  0: knife
+  1: scissors

@@ -1,0 +1,58 @@
+services:
+  api:
+    build: ./apps/api
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    ports:
+      - '127.0.0.1:3000:3000'
+  mongodb:
+    image: mongo:8
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:27017:27017'
+    volumes:
+      - bookmycctv_mongodb:/data/db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  mediamtx:
+    image: bluenviron/mediamtx:1.21.2
+    restart: unless-stopped
+    volumes:
+      - ./infrastructure/docker/mediamtx.yml:/mediamtx.yml:ro
+    ports:
+      - "127.0.0.1:8554:8554"
+      - '127.0.0.1:8888:8888'
+      - '127.0.0.1:8889:8889'
+      - '8189:8189/udp'
+    expose: ['8554', '9997', '9998']
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://127.0.0.1:9997/v3/paths/list']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  ai-worker:
+    build: ./services/ai-worker
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      API_URL: http://api:3000
+      AI_MODEL_DIR: /models
+      AI_EVIDENCE_DIR: /evidence
+      AI_SAMPLE_FPS: ${AI_SAMPLE_FPS:-2}
+      AI_MAX_CAMERAS: ${AI_MAX_CAMERAS:-4}
+      AI_USE_CUDA: ${AI_USE_CUDA:-false}
+    volumes:
+      - ./services/ai-worker/models:/models:ro
+      - bookmycctv_evidence:/evidence
+    depends_on:
+      - api
+    profiles: ['ai']
+volumes:
+  bookmycctv_mongodb:
+  bookmycctv_evidence:

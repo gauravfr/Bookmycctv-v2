@@ -1,0 +1,19 @@
+{
+  "settings_version": "0.0.8",
+  "datasets_dir": "C:\\Users\\pande\\Downloads\\BookMyCCTV-V2\\services\\ai-worker\\datasets",
+  "weights_dir": "weights",
+  "runs_dir": "runs",
+  "uuid": "040b751ea87337e86113f16fda05e3abb579597a3b025b1eb174aa926be0fdcc",
+  "sync": true,
+  "api_key": "",
+  "openai_api_key": "",
+  "clearml": true,
+  "comet": true,
+  "dvc": true,
+  "mlflow": true,
+  "raytune": true,
+  "tensorboard": false,
+  "wandb": false,
+  "vscode_msg": true,
+  "openvino_msg": true
+}

@@ -1,0 +1,11 @@
+# CCTV integration architecture
+
+Devices are tenant-owned records with AES-256-GCM encrypted username/password fields. Each value has a unique 96-bit IV, authentication tag, and key ID. `DEVICE_CREDENTIAL_KEY_BASE64` must decode to 32 bytes. Rotation is performed by configuring both old and new keys during a controlled migration, decrypting with the stored key ID, re-encrypting with the new primary key, then retiring the old key; the current runtime intentionally fails closed when a stored key ID is unavailable.
+
+`ConnectorRegistry` selects Dahua, CP Plus, or Hikvision adapters. All use authenticated ONVIF discovery where the device supports it. Success stages remain separate: network reachability, authentication, device information, channels, stream URI, and RTSP media negotiation. ONVIF success never implies playable video. RTSP uses a bounded native DESCRIBE probe; Basic authentication is supported, while Digest-only RTSP endpoints may remain unverified. FFprobe is optional and is not an API startup dependency.
+
+Device destinations are re-resolved immediately before connection. Every IPv4 answer must fall within `DEVICE_ALLOWED_CIDRS`; loopback, link-local/metadata, unspecified, and multicast destinations remain blocked even if accidentally allowlisted. Hostnames containing URL syntax or credentials are rejected. Private camera networks therefore require an explicit organization-deployment allowlist. IPv6 device targets are currently rejected.
+
+Discovery upserts cameras by organization/device/channel, preserves administrator names, updates profiles and verified capabilities, and marks absent channels offline without deletion. Stream URIs are encrypted and omitted from all serializers. Assignment validation confirms a live same-tenant Camera and requires the requested permission's capability to be `SUPPORTED`.
+
+`LOCAL_LAN` is operational when the API host can route to the approved device network. `SECURE_GATEWAY` has a defined association field but returns `GATEWAY_NOT_READY` until Prompt 4 provides transport. `VENDOR_CLOUD` is rejected because no authorized vendor SDK/API is configured. Background health scheduling is an interface-level future concern; manual test/reconnect is bounded and rate limited.
